@@ -12,6 +12,7 @@ revanced_files_url = [revanced_cli_url, revanced_integrations_url, revanced_patc
 
 
 def find_latest_version(url):
+    retry_count = 5
     temp_package_name = url.split('/')[4]
     package_name = ''
     if temp_package_name == 'revanced-cli':
@@ -21,7 +22,14 @@ def find_latest_version(url):
     elif temp_package_name == 'revanced-integrations':
         package_name = 'ReVanced Integrations'
 
-    page = requests.get(url)
+    for i in range(retry_count):
+        try:
+            page = requests.get(url)
+            if page.status_code == 200:
+                break
+        except:
+            print('[+] An error occurred')
+            print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     soup = BeautifulSoup(page.content, 'lxml')
     assets = soup.find_all('include-fragment', {'loading' : 'lazy'})
     latest_version_page = assets[0]['src']
@@ -29,16 +37,32 @@ def find_latest_version(url):
     return latest_version_page
 
 def find_latest_version_file_url(url, base_url, index):
-    page = requests.get(url)
+    retry_count = 5
+    for i in range(retry_count):
+        try:
+            page = requests.get(url)
+            if page.status_code == 200:
+                break
+        except:
+            print('[+] An error occurred')
+            print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     soup = BeautifulSoup(page.content, 'lxml')
     links = soup.find_all('a', {'class' : 'Truncate'})
     latest_download_link = base_url + links[index]['href']
     return latest_download_link
 
 def download_file(url):
+    retry_count = 5
     filename = url.split('/')[-1]
     print('[+] Downloading ' + filename)
-    response = requests.get(url, stream=True)
+    for i in range(retry_count):
+        try:
+            response = requests.get(url, stream=True)
+            if response.status_code == 200:
+                break
+        except:
+            print('[+] An error occurred')
+            print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     with open(filename, mode="wb") as file:
         for chunk in response.iter_content(chunk_size=1024 * 1024):
             file.write(chunk)
@@ -48,10 +72,18 @@ def download_file(url):
 
 def find_latest_supported_youtube_ver(url):
     index = 0
+    retry_count = 5
     latest_version_page_url = find_latest_version(url)
     download_link = find_latest_version_file_url(latest_version_page_url, base_url, index)
     print('[+] Finding latest supported version of YouTube for ReVanced in ' + download_link.split('/')[-1])
-    response = requests.get(download_link)
+    for i in range(retry_count):
+        try:
+            response = requests.get(download_link)
+            if response.status_code == 200:
+                break
+        except:
+            print('[+] An error occurred')
+            print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     json_str = json.loads(response.content)
     latest_ver = json_str[0]['compatiblePackages'][0]['versions'][-1]
     print('[+] Latest supported version of YouTube for ReVanced is v' + latest_ver)
@@ -68,7 +100,16 @@ def get_latest_supported_youtube_ver(yt_version):
 
     print('[+] Searching for YouTube v' + yt_version.replace('-', '.') + ' on APKMirror')
     print('[+] Opening webpage ' + apkmirror_yt_url)
-    response = requests.get(apkmirror_yt_url, headers=headers)
+
+    retry_count = 5
+    for i in range(retry_count):
+        try:
+            response = requests.get(apkmirror_yt_url, headers=headers)
+            if response.status_code == 200:
+                break
+        except:
+            print('[+] An error occurred')
+            print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     soup = BeautifulSoup(response.content, 'lxml')
     yt_links =  soup.find_all('div', attrs={'class' : 'table-row headerFont'})
     yt_apk_page = apkmirror_url
@@ -78,7 +119,14 @@ def get_latest_supported_youtube_ver(yt_version):
 
     print('[+] Searching for YouTube v' + yt_version.replace('-', '.') + ' APK download page')
 
-    res = requests.get(yt_apk_page, headers=headers)
+    for i in range(retry_count):
+        try:
+            res = requests.get(yt_apk_page, headers=headers)
+            if res.status_code == 200:
+                break
+        except:
+            print('[+] An error occurred')
+            print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     soup = BeautifulSoup(res.content, 'lxml')
     apk_dl_page = soup.find_all('a', attrs={'class' : 'accent_bg'})
     apk_dl_page_url = apkmirror_url + apk_dl_page[0]['href']
@@ -87,7 +135,14 @@ def get_latest_supported_youtube_ver(yt_version):
     print('[+] Opening webpage ' + apk_dl_page_url)
     print('[+] Searching for YouTube v' + yt_version.replace('-', '.') + ' APK download link')
 
-    res = requests.get(apk_dl_page_url, headers=headers)
+    for i in range(retry_count):
+        try:
+            res = requests.get(apk_dl_page_url, headers=headers)
+            if res.status_code == 200:
+                break
+        except:
+            print('[+] An error occurred')
+            print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     soup = BeautifulSoup(res.content, 'lxml')
     apk_page_details = soup.find_all('a', attrs={'rel' : 'nofollow'})
     apk_link = apkmirror_url + apk_page_details[0]['href']
@@ -95,7 +150,14 @@ def get_latest_supported_youtube_ver(yt_version):
     print('[+] Found download link ' + apk_link)
     print('[+] Downloading and saving to ' + package_name)
 
-    apk_file = requests.get(apk_link, headers=headers, stream=True)
+    for i in range(retry_count):
+        try:
+            apk_file = requests.get(apk_link, headers=headers, stream=True)
+            if apk_file.status_code == 200:
+                break
+        except:
+            print('[+] An error occurred')
+            print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     with open(package_name, mode='wb') as file:
         for chunk in apk_file.iter_content(chunk_size=1024 * 1024):
             file.write(chunk)
