@@ -170,23 +170,25 @@ def generate_command(file_names):
         file.write('java -jar ' + file_names[0] + ' patch -b ' + file_names[2] + ' -o YouTube-ReVanced-' + file_names[4] + '.apk ' + ' -m ' + file_names[1] + ' ' + file_names[3] )
 
 
-filenames = []
+if __name__ == "__main__":
+    filenames = []
 
-for url in revanced_files_url:
-    index = 0
-    if 'patches' in url:
-        index = 1
-    latest_version_page_url = find_latest_version(url)
-    download_link = find_latest_version_file_url(latest_version_page_url, base_url, index)
-    filenames.append(download_file(download_link))
+    for url in revanced_files_url:
+        index = 0
+        if 'patches' in url:
+            index = 1
+        latest_version_page_url = find_latest_version(url)
+        download_link = find_latest_version_file_url(latest_version_page_url, base_url, index)
+        filenames.append(download_file(download_link))
 
 
-yt_version = find_latest_supported_youtube_ver(revanced_files_url[2])
+    yt_version = find_latest_supported_youtube_ver(revanced_files_url[2])
 
-filenames.append(get_latest_supported_youtube_ver(yt_version))
-filenames.append(yt_version)
+    filenames.append(get_latest_supported_youtube_ver(yt_version))
+    filenames.append(yt_version)
 
-print('[+] Creating batch file generate-revanced-apk.bat')
-generate_command(filenames)
-print('[+] Executing batch file "generate-revanced-apk.bat"')
-os.system("generate-revanced-apk.bat")
+    print('[+] Creating batch file generate-revanced-apk.bat')
+    generate_command(filenames)
+    #print('[+] Run "generate-revanced-apk.bat" to generate youtube revanced apk')
+    print('[+] Executing batch file "generate-revanced-apk.bat"')
+    os.system("generate-revanced-apk.bat")
