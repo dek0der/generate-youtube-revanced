@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import requests, json
+import requests, json, os
 from bs4 import BeautifulSoup
 
 base_url = 'https://github.com'
@@ -188,4 +188,5 @@ filenames.append(yt_version)
 
 print('[+] Creating batch file generate-revanced-apk.bat')
 generate_command(filenames)
-print('[+] Run "generate-revanced-apk.bat" to generate youtube revanced apk')
+print('[+] Executing script "generate-revanced-apk.bat"')
+os.system("generate-revanced-apk.bat")
