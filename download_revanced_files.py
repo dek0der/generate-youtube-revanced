@@ -93,7 +93,7 @@ def get_latest_supported_youtube_ver(yt_version):
     apk_link = apkmirror_url + apk_page_details[0]['href']
 
     print('[+] Found download link ' + apk_link)
-    print('[+] Downloading ' + package_name)
+    print('[+] Downloading and saving to ' + package_name)
 
     apk_file = requests.get(apk_link, headers=headers, stream=True)
     with open(package_name, mode='wb') as file:
