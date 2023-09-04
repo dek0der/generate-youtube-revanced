@@ -188,5 +188,5 @@ filenames.append(yt_version)
 
 print('[+] Creating batch file generate-revanced-apk.bat')
 generate_command(filenames)
-print('[+] Executing script "generate-revanced-apk.bat"')
+print('[+] Executing batch file "generate-revanced-apk.bat"')
 os.system("generate-revanced-apk.bat")
