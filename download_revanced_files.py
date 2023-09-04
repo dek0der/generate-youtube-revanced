@@ -124,4 +124,6 @@ yt_version = find_latest_supported_youtube_ver(revanced_files_url[2])
 filenames.append(get_latest_supported_youtube_ver(yt_version))
 filenames.append(yt_version)
 
+print('[+] Creating batch file generate-revanced-apk.bat')
 generate_command(filenames)
+print('[+] Run "generate-revanced-apk.bat" to generate youtube revanced apk')
