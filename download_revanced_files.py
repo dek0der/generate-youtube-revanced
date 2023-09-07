@@ -187,7 +187,7 @@ if __name__ == "__main__":
     filenames.append(get_latest_supported_youtube_ver(yt_version))
     filenames.append(yt_version)
 
-    print('[+] Creating batch file generate-revanced-apk.bat')
+    print('[+] Creating batch file "generate-revanced-apk.bat"')
     generate_command(filenames)
     #print('[+] Run "generate-revanced-apk.bat" to generate youtube revanced apk')
     print('[+] Executing batch file "generate-revanced-apk.bat"')
