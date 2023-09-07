@@ -3,6 +3,8 @@ This script downloads revanced project files, creates a batch file to generate y
 
 ## Requirements
 
-`pip3 install requests bs4 lxml`
+1. Install python libraries `requests, lxml and bs4` using following code:
 
-Install Java Azul JDK from [here](https://www.azul.com/downloads/?package=jdk#zulu)
+ - `pip3 install requests bs4 lxml`
+
+2. Install Java Azul JDK from [here](https://www.azul.com/downloads/?package=jdk#zulu)
