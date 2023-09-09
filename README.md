@@ -8,3 +8,7 @@ This script downloads revanced project files, creates a batch file to generate y
  - `pip3 install requests bs4 lxml`
 
 2. Install Java Azul JDK from [here](https://www.azul.com/downloads/?package=jdk#zulu)
+
+## Usage
+### On Linux:
+ - python generate-youtube-revanced.py
