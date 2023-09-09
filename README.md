@@ -12,3 +12,5 @@ This script downloads revanced project files, creates a batch file to generate y
 ## Usage
 ### On Linux:
  - python generate-youtube-revanced.py
+### On Windows:
+ - py generate-youtube-revanced.py
