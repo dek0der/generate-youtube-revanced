@@ -10,10 +10,12 @@ This script downloads revanced project files, creates a batch file to generate y
 2. Install Java Azul JDK from [here](https://www.azul.com/downloads/?package=jdk#zulu)
 
 ## Usage
-### On Linux:
- - python generate-youtube-revanced.py
-### On Windows:
- - py generate-youtube-revanced.py
+- ### On Linux:
+  In linux terminal type:
+   - `python generate-youtube-revanced.py`
+- ### On Windows:
+  In windows command prompt or PowerShell type:
+   - `py generate-youtube-revanced.py`
 
 ## Notes
 
