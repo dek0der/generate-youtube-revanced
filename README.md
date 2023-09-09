@@ -14,3 +14,7 @@ This script downloads revanced project files, creates a batch file to generate y
  - python generate-youtube-revanced.py
 ### On Windows:
  - py generate-youtube-revanced.py
+
+## Notes
+
+You may need to add python, pip and java to you environment varaible $PATH
