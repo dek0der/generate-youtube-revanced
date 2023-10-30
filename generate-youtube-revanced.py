@@ -85,7 +85,11 @@ def find_latest_supported_youtube_ver(url):
             print('[+] An error occurred')
             print('[+] Retrying ' + str(i + 1) + ' of ' + str(retry_count))
     json_str = json.loads(response.content)
-    latest_ver = json_str[0]['compatiblePackages'][0]['versions'][-1]
+    latest_ver = ''
+    for i in range(len(json_str)):
+        if json_str[i]['compatiblePackages'][0]['name'] == 'com.google.android.youtube':
+            latest_ver = json_str[i]['compatiblePackages'][0]['versions'][-1]
+            break
     print('[+] Latest supported version of YouTube for ReVanced is v' + latest_ver)
     return latest_ver
 
@@ -187,7 +191,7 @@ if __name__ == "__main__":
     filenames.append(get_latest_supported_youtube_ver(yt_version))
     filenames.append(yt_version)
 
-    print('[+] Creating batch file "generate-revanced-apk.bat"')
+    print('[+] Creating batch file generate-revanced-apk.bat')
     generate_command(filenames)
     #print('[+] Run "generate-revanced-apk.bat" to generate youtube revanced apk')
     print('[+] Executing batch file "generate-revanced-apk.bat"')
