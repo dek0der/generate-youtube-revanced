@@ -87,6 +87,8 @@ def find_latest_supported_youtube_ver(url):
     json_str = json.loads(response.content)
     latest_ver = ''
     for i in range(len(json_str)):
+        if json_str[i]['compatiblePackages'] == None:
+            continue
         if json_str[i]['compatiblePackages'][0]['name'] == 'com.google.android.youtube':
             latest_ver = json_str[i]['compatiblePackages'][0]['versions'][-1]
             break
