@@ -173,12 +173,18 @@ def get_latest_supported_youtube_ver(yt_version):
 
 def generate_command(file_names):
     with open('generate-revanced-apk.bat', 'w') as file:
-        file.write('java -jar ' + file_names[0] + ' patch -b ' + file_names[2] + ' -o YouTube-ReVanced-' + file_names[4] + '.apk ' + ' -m ' + file_names[1] + ' ' + file_names[3] )
+        file.write('java -jar ' + file_names[0] + ' patch -b ' + file_names[2] + ' -o YouTube-ReVanced-' + file_names[4] + '.apk' + ' -m ' + file_names[1] + ' ' + file_names[3] )
 
 
 if __name__ == "__main__":
     filenames = []
 
+    yt_version = find_latest_supported_youtube_ver(revanced_files_url[2])
+
+    resp = input('[!] Do you want to continue (y or n)? ')
+    if resp == 'n' or resp == 'N':
+        exit()
+    
     for url in revanced_files_url:
         index = 0
         if 'patches' in url:
@@ -188,7 +194,6 @@ if __name__ == "__main__":
         filenames.append(download_file(download_link))
 
 
-    yt_version = find_latest_supported_youtube_ver(revanced_files_url[2])
 
     filenames.append(get_latest_supported_youtube_ver(yt_version))
     filenames.append(yt_version)
